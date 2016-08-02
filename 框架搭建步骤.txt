@@ -1,0 +1,84 @@
+1.创建项目 Dynamic web project，注意生成web.xml文件，将路径命名为WebRoot
+
+2.将相关的jar文件导入到WEB-INF/lib文件夹中，如果没有lib文件夹就自己创建一个
+
+	导入的jar文件包括(一共33个，包括mysql驱动连接，c3p0连接池，junit测试，日志，spring，mybatis，以及spring和mybatis的整合jar)
+		aopalliance-1.0.jar
+		asm-3.3.1.jar
+		aspectjweaver-1.6.11.jar
+		c3p0-0.9.1.2.jar
+		cglib-2.2.2.jar
+		commons-dbcp-1.2.2.jar
+		commons-logging-1.1.1.jar
+		commons-pool-1.3.jar
+		javassist-3.17.1-GA.jar
+		jstl-1.2.jar
+		junit-4.9.jar
+		log4j-1.2.17.jar
+		log4j-api-2.0-rc1.jar
+		log4j-core-2.0-rc1.jar
+		mchange-commons-0.2.jar
+		mybatis-3.2.7.jar
+		mybatis-spring-1.2.2.jar
+		mysql-connector-java-5.1.7-bin.jar
+		slf4j-api-1.7.5.jar
+		slf4j-log4j12-1.7.5.jar
+		spring-aop-3.2.0.RELEASE.jar
+		spring-aspects-3.2.0.RELEASE.jar
+		spring-beans-3.2.0.RELEASE.jar
+		spring-context-3.2.0.RELEASE.jar
+		spring-context-support-3.2.0.RELEASE.jar
+		spring-core-3.2.0.RELEASE.jar
+		spring-expression-3.2.0.RELEASE.jar
+		spring-jdbc-3.2.0.RELEASE.jar
+		spring-orm-3.2.0.RELEASE.jar
+		spring-test-3.2.0.RELEASE.jar
+		spring-tx-3.2.0.RELEASE.jar
+		spring-web-3.2.0.RELEASE.jar
+		spring-webmvc-3.2.0.RELEASE.jar
+	如果需要对jar包文件进行build path，就要build path，如果不用就直接忽略
+	
+3.创建相关文件夹：
+	3.1：src/config
+				mybatis 这里存放sqlMapConfig.xml
+				spring  这里存放spring的所有配置文件，包括spring-mvc.xml文件
+				sqlmap	这里可以存放mybatis的sql文件，不过在项目中运用到mapper的批量扫描，所以要坚持mapper.java文件和mapper.xml文件的存放包名是一样的，所以就
+							放在了一起，也可以重新在其他地方创建跟mapper.java一样的路径存放mapper.xml文件，因为在编译之后都会编译到一起的
+							
+	创建要用到的包：
+		com.wwq.frame
+			controller   存放接受用户请求的处理类
+			domain		 存放pojo
+			mapper		存放mapper.java和mapper.xml
+			service.userService		存放service层的接口和实现类
+				impl			 	存放service的实现类
+							
+
+注意事项：
+	db.properties和log4j.properties文件虽然存放在src/config文件夹中，但是在编译之后都是在classpath路径下面，所以在
+	书写配置文件路径的时候直接就是:classpath:/db.properties
+
+	sqlMapConfig.xml和spring的配置文件都分别包含在mybatis和spring的包中，所以在书写路径的时候，虽然src/config也是classpath
+	路径下面，不用加入config这个路径，但是需要加入包的路径，所以就是classpath：/mybatis/sqlMapConfig.xml
+	
+
+
+spring-mvc.xml文件中配置了“视图解析器”的最后访问路径，这里是在WEB-INF/views下面的jsp，所以在controller中返回的逻辑视图都会在views下面查找jsp页面
+	所以这里要记得在WEB-INF文件夹下面创建views文件夹存放所有的jsp文件，或者你可以在配置“视图解析器”的时候修改jsp的访问路径
+	
+applicationContext-dao.xml有一个mapper批量扫描的配置，需要配置正确的mapper路径
+
+applicationContext-tx.xml有一个<aop:advisor>需要配置对哪个类的哪个方法进行事务控制，这里也要正确配置
+
+
+总结：这个就是spring和mybatis基于tomcat的dynamic web project项目的框架配置方法
+
+
+
+
+
+
+
+
+							
+				
