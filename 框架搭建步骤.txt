@@ -73,7 +73,7 @@ applicationContext-tx.xml有一个<aop:advisor>需要配置对哪个类的哪个方法进行事务控
 
 总结：这个就是spring和mybatis基于tomcat的dynamic web project项目的框架配置方法
 
-
+另外，附上数据库脚本db_frame_test.sql
 
 
 
